@@ -1,0 +1,14 @@
+{
+	"name": "@halodotapi/acode-halo-mcc",
+	"description": "Halo API Discord Bot",
+	"version": "0.0.0",
+	"license": "MIT",
+	"author": {
+		"name": "Alexis \"Zeny\" Bize",
+		"email": "alexis@autocode.com"
+	},
+	"dependencies": {
+		"lib": "latest"
+	},
+	"publish": false
+}

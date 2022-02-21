@@ -1,0 +1,11 @@
+# Folders
+node_modules/
+
+# Files
+.editorconfig
+.prettierrc
+.DS_Store
+
+# Environment
+.env*
+env-template.json

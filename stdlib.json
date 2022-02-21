@@ -1,0 +1,19 @@
+{
+	"name": "zeny/halodotapi-bot",
+	"timeout": 30000,
+	"connector": false,
+	"events": {
+		"functions/events/discord/command/halo-stats.js": {
+			"name": "discord.command",
+			"subtype": {
+				"command": "halo-stats"
+			}
+		},
+		"functions/events/discord/command/halo-ranks.js": {
+			"name": "discord.command",
+			"subtype": {
+				"command": "halo-ranks"
+			}
+		}
+	}
+}

@@ -1,0 +1,11 @@
+# Folders
+node_modules/
+
+# Files
+dump.rdb
+.DS_Store
+
+# Environment
+.env*
+env.json
+!.env.template
