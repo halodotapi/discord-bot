@@ -5,7 +5,8 @@
 
 const lib = require('../../../lib');
 const { INFINITE_LIB_VERSION } = require('../../config');
-const { valueWithCommas: vwc, escapeGamertag } = require('../../../utils');
+const { valueWithCommas: vwc } = require('../../../utils');
+const { escapeGamertag } = require('../../../utils/players');
 
 const {
 	BOT_EMBED_COLOR,
