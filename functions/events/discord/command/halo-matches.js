@@ -5,15 +5,19 @@
 
 const lib = require('../../../../modules/lib');
 const { DISCORD_LIB_VERSION } = require('../../../../modules/discord/config');
+const { normalizeGamertag } = require('../../../../modules/utils/players');
+
+const {
+	getValueFromDiscordOptionsPayloadByName,
+} = require('../../../../modules/utils/discord');
 
 const {
 	getPlayerMCCMatches,
 } = require('../../../../modules/halo-api/handlers/mcc/halo-matches');
 
 const {
-	normalizeGamertag,
-	getValueFromDiscordOptionsPayloadByName,
-} = require('../../../../modules/utils');
+	getPlayerInfiniteMatches,
+} = require('../../../../modules/halo-api/handlers/infinite/halo-matches');
 
 //#region handler
 
@@ -31,6 +35,16 @@ module.exports = async (
 	const gamertag = normalizeGamertag(
 		getValueFromDiscordOptionsPayloadByName(options, 'gamertag')
 	);
+
+	// Halo Infinite
+	if (game === 'infinite') {
+		const response = discord.messages.create({
+			channel_id: `${context.params.event.channel_id}`,
+			...(await getPlayerInfiniteMatches(gamertag)),
+		});
+
+		return response;
+	}
 
 	// Halo: The Master Chief Collection
 	if (game === 'mcc') {

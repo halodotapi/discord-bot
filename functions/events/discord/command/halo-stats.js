@@ -5,6 +5,11 @@
 
 const lib = require('../../../../modules/lib');
 const { DISCORD_LIB_VERSION } = require('../../../../modules/discord/config');
+const { normalizeGamertag } = require('../../../../modules/utils/players');
+
+const {
+	getValueFromDiscordOptionsPayloadByName,
+} = require('../../../../modules/utils/discord');
 
 const {
 	getPlayerInfiniteStats,
@@ -13,11 +18,6 @@ const {
 const {
 	getPlayerMCCStats,
 } = require('../../../../modules/halo-api/handlers/mcc/halo-stats');
-
-const {
-	normalizeGamertag,
-	getValueFromDiscordOptionsPayloadByName,
-} = require('../../../../modules/utils');
 
 //#region handler
 

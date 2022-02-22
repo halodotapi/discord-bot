@@ -64,7 +64,7 @@ const getPlayerInfiniteRanks = async gamertag => {
 		tts: false,
 		embed: {
 			color: BOT_EMBED_COLOR,
-			title: `Halo Infinite Ranks (CSRS) for ${formattedGamertag}`,
+			title: `Infinite Ranks (CSRS) for ${formattedGamertag}`,
 			author: {
 				name: BOT_EMBED_AUTHOR_NAME,
 				url: BOT_EMBED_AUTHOR_URL,

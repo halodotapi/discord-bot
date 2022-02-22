@@ -4,7 +4,7 @@
  **/
 
 const lib = require('../../../lib');
-const { MCC_LIB_VERSION } = require('../../config');
+const { INFINITE_LIB_VERSION } = require('../../config');
 const { packCustomId, CUSTOM_IDS_ACTIONS } = require('../../../utils/discord');
 const { valueWithCommas: vwc } = require('../../../utils');
 
@@ -21,11 +21,14 @@ const {
  * @param {string} gamertag
  * @param {number} [index=0]
  **/
-const getPlayerMCCMatches = async (gamertag, index = 0) => {
-	const mcc = lib.halo.mcc[MCC_LIB_VERSION];
-	const matches = await mcc.player.stats.matches.list({
+const getPlayerInfiniteMatches = async (gamertag, index = 0) => {
+	const infinite = lib.halo.infinite[INFINITE_LIB_VERSION];
+	const matches = await infinite.stats.matches.list({
 		gamertag,
-		page: 1,
+		limit: {
+			count: 25,
+			offset: index,
+		},
 	});
 
 	const formattedGamertag = matches.additional.gamertag;
@@ -50,7 +53,7 @@ const getPlayerMCCMatches = async (gamertag, index = 0) => {
 			{
 				...navigationButtonTemplate,
 				label: 'Previous Match',
-				custom_id: packCustomId(CUSTOM_IDS_ACTIONS.MCC_MATCHES, {
+				custom_id: packCustomId(CUSTOM_IDS_ACTIONS.INFINITE_MATCHES, {
 					gamertag,
 					index: index - 1,
 				}),
@@ -60,7 +63,7 @@ const getPlayerMCCMatches = async (gamertag, index = 0) => {
 			{
 				...navigationButtonTemplate,
 				label: 'Next Match',
-				custom_id: packCustomId(CUSTOM_IDS_ACTIONS.MCC_MATCHES, {
+				custom_id: packCustomId(CUSTOM_IDS_ACTIONS.INFINITE_MATCHES, {
 					gamertag,
 					index: index + 1,
 				}),
@@ -75,7 +78,7 @@ const getPlayerMCCMatches = async (gamertag, index = 0) => {
 		components,
 		embed: {
 			color: BOT_EMBED_COLOR,
-			title: `MCC Recent Matches for ${formattedGamertag}`,
+			title: `Infinite Recent Matches for ${formattedGamertag}`,
 			description: `> Latest 25 - Match ${index + 1}/${
 				matches.data.length
 			}`,
@@ -84,13 +87,27 @@ const getPlayerMCCMatches = async (gamertag, index = 0) => {
 				url: BOT_EMBED_AUTHOR_URL,
 				icon_url: BOT_EMBED_ICON_URL,
 			},
-			thumbnail: {
-				url:
-					matchInfo.details.category.id === null
-						? 'https://assets.halo.autocode.gg/static/mcc/images/multiplayer/gametypes/unknown.png'
-						: matchInfo.details.category.image_url,
+			image: {
+				url: matchInfo.details.map.asset.thumbnail_url,
 			},
 			fields: [
+				{
+					name: 'Details',
+					value: [
+						`+ **Map:** ${matchInfo.details.map.name}`,
+						`+ **Mode:** ${matchInfo.details.category.name}`,
+						`+ **Playlist:** ${matchInfo.details.playlist.name}`,
+						`+ **Duration:** ${matchInfo.duration.human}`,
+						`+ **Outcome:** ${[
+							matchInfo.player.outcome.charAt(0).toUpperCase() +
+								matchInfo.player.outcome.slice(1),
+							matchInfo.player.outcome === 'win'
+								? ':tada:'
+								: ':salt:',
+						].join(' ')}`,
+					].join('\n'),
+					inline: false,
+				},
 				{
 					name: 'Summary',
 					value: [
@@ -110,47 +127,41 @@ const getPlayerMCCMatches = async (gamertag, index = 0) => {
 							matchInfo.player.stats.core.breakdowns.kills
 								.headshots
 						)}`,
-						`+ **Points:** ${vwc(matchInfo.player.stats.points)}`,
 						`+ **K/D Ratio:** ${(
 							matchInfo.player.stats.core.kdr || 0
 						).toFixed(2)}`,
+						``,
 					].join('\n'),
 					inline: true,
 				},
 				{
-					name: 'Details',
+					name: 'Shots',
 					value: [
-						`+ **Map:** ${matchInfo.details.map.name || 'Unknown'}`,
-						`+ **Mode:** ${
-							matchInfo.details.category.id === null
-								? 'Unknown'
-								: matchInfo.details.category.name
-						}`,
-						`+ **Duration:** ${matchInfo.duration.human}`,
-						`+ **Outcome:** ${
-							matchInfo.player.stats.outcome === 'unknown'
-								? 'Unknown'
-								: [
-										matchInfo.player.stats.outcome
-											.charAt(0)
-											.toUpperCase() +
-											matchInfo.player.stats.outcome.slice(
-												1
-											),
-										matchInfo.player.stats.outcome === 'win'
-											? ':tada:'
-											: ':salt:',
-								  ].join(' ')
-						}`,
+						`+ **Fired:** ${vwc(
+							matchInfo.player.stats.core.shots.fired
+						)}`,
+						`+ **Landed:** ${vwc(
+							matchInfo.player.stats.core.shots.landed
+						)}`,
+						`+ **Missed:** ${vwc(
+							matchInfo.player.stats.core.shots.missed
+						)}`,
+						`+ **Accuracy:** ${matchInfo.player.stats.core.shots.accuracy.toFixed(
+							2
+						)}%`,
+					].join('\n'),
+					inline: true,
+				},
+				{
+					name: 'Damage',
+					value: [
+						`+ **Taken:** ${matchInfo.player.stats.core.damage.taken}`,
+						`+ **Dealt:** ${matchInfo.player.stats.core.damage.dealt}`,
 					].join('\n'),
 					inline: true,
 				},
 			],
 			timestamp: matchInfo.played_at,
-			footer: {
-				text: matchInfo.details.game.name || 'Unknown',
-				icon_url: matchInfo.details.game.image_url,
-			},
 		},
 	};
 };
@@ -158,5 +169,5 @@ const getPlayerMCCMatches = async (gamertag, index = 0) => {
 //#endregion
 
 module.exports = {
-	getPlayerMCCMatches,
+	getPlayerInfiniteMatches,
 };

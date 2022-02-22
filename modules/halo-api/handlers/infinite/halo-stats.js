@@ -52,7 +52,7 @@ const getPlayerInfiniteStats = async gamertag => {
 		tts: false,
 		embed: {
 			color: BOT_EMBED_COLOR,
-			title: `Halo Infinite Service Record for ${formattedGamertag}`,
+			title: `Infinite Service Record for ${formattedGamertag}`,
 			author: {
 				name: BOT_EMBED_AUTHOR_NAME,
 				url: BOT_EMBED_AUTHOR_URL,
