@@ -155,8 +155,12 @@ const getPlayerInfiniteMatches = async (gamertag, index = 0) => {
 				{
 					name: 'Damage',
 					value: [
-						`+ **Taken:** ${matchInfo.player.stats.core.damage.taken}`,
-						`+ **Dealt:** ${matchInfo.player.stats.core.damage.dealt}`,
+						`+ **Taken:** ${vwc(
+							matchInfo.player.stats.core.damage.taken
+						)}`,
+						`+ **Dealt:** ${vwc(
+							matchInfo.player.stats.core.damage.dealt
+						)}`,
 					].join('\n'),
 					inline: true,
 				},
