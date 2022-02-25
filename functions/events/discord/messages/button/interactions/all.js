@@ -15,12 +15,16 @@ const {
 } = require('../../../../../../modules/discord/config');
 
 const {
-	getPlayerMCCMatches,
-} = require('../../../../../../modules/halo-api/handlers/mcc/halo-matches');
-
-const {
 	getPlayerInfiniteMatches,
 } = require('../../../../../../modules/halo-api/handlers/infinite/halo-matches');
+
+const {
+	getMCCArticles,
+} = require('../../../../../../modules/halo-api/handlers/mcc/halo-articles');
+
+const {
+	getInfiniteArticles,
+} = require('../../../../../../modules/halo-api/handlers/infinite/halo-articles');
 
 //#region handler
 
@@ -39,21 +43,7 @@ module.exports = async (
 	const { action, payload } = unpackCustomId(customId);
 	const discord = lib.discord.channels[DISCORD_LIB_VERSION];
 
-	if (action === CUSTOM_IDS_ACTIONS.MCC_MATCHES) {
-		await setLoading(
-			context.params.event.message.id,
-			context.params.event.channel_id
-		);
-
-		const response = await discord.messages.update({
-			message_id: context.params.event.message.id,
-			channel_id: context.params.event.channel_id,
-			...(await getPlayerMCCMatches(payload.gamertag, payload.index)),
-		});
-
-		return response;
-	}
-
+	// Halo Infinite - Matches
 	if (action === CUSTOM_IDS_ACTIONS.INFINITE_MATCHES) {
 		await setLoading(
 			context.params.event.message.id,
@@ -72,6 +62,54 @@ module.exports = async (
 		return response;
 	}
 
+	// Halo Infinite - Articles
+	if (action === CUSTOM_IDS_ACTIONS.INFINITE_ARTICLES) {
+		await setLoading(
+			context.params.event.message.id,
+			context.params.event.channel_id
+		);
+
+		const response = await discord.messages.update({
+			message_id: context.params.event.message.id,
+			channel_id: context.params.event.channel_id,
+			...(await getInfiniteArticles(payload.language, payload.index)),
+		});
+
+		return response;
+	}
+
+	// Halo: The Master Chief Collection - Matches
+	if (action === CUSTOM_IDS_ACTIONS.MCC_MATCHES) {
+		await setLoading(
+			context.params.event.message.id,
+			context.params.event.channel_id
+		);
+
+		const response = await discord.messages.update({
+			message_id: context.params.event.message.id,
+			channel_id: context.params.event.channel_id,
+			...(await getPlayerMCCMatches(payload.language, payload.index)),
+		});
+
+		return response;
+	}
+
+	// Halo: The Master Chief Collection - Articles
+	if (action === CUSTOM_IDS_ACTIONS.MCC_ARTICLES) {
+		await setLoading(
+			context.params.event.message.id,
+			context.params.event.channel_id
+		);
+
+		const response = await discord.messages.update({
+			message_id: context.params.event.message.id,
+			channel_id: context.params.event.channel_id,
+			...(await getMCCArticles(payload.language, payload.index)),
+		});
+
+		return response;
+	}
+
 	throw new Error('Unknown "action" specified');
 };
 
@@ -81,7 +119,6 @@ module.exports = async (
 /**
  * @param {string} messageId
  * @param {string} channelId
- * @param {any} discord
  */
 const setLoading = async (messageId, channelId) => {
 	const discord = lib.discord.channels[DISCORD_LIB_VERSION];

@@ -1,5 +1,5 @@
 {
-	"name": "zeny/halodotapi-bot",
+	"name": "halo/discord-bot",
 	"timeout": 30000,
 	"connector": false,
 	"events": {
@@ -13,6 +13,18 @@
 			"name": "discord.command",
 			"subtype": {
 				"command": "halo-ranks"
+			}
+		},
+		"functions/events/discord/command/halo-matches.js": {
+			"name": "discord.command",
+			"subtype": {
+				"command": "halo-matches"
+			}
+		},
+		"functions/events/discord/command/halo-articles.js": {
+			"name": "discord.command",
+			"subtype": {
+				"command": "halo-articles"
 			}
 		}
 	}

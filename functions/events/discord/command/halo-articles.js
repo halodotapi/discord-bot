@@ -12,12 +12,12 @@ const {
 } = require('../../../../modules/utils/discord');
 
 const {
-	getPlayerMCCRanks,
-} = require('../../../../modules/halo-api/handlers/mcc/halo-ranks');
+	getInfiniteArticles,
+} = require('../../../../modules/halo-api/handlers/infinite/halo-articles');
 
 const {
-	getPlayerInfiniteRanks,
-} = require('../../../../modules/halo-api/handlers/infinite/halo-ranks');
+	getMCCArticles,
+} = require('../../../../modules/halo-api/handlers/mcc/halo-articles');
 
 //#region handler
 
@@ -32,15 +32,17 @@ module.exports = async (
 
 	// Options
 	const game = getValueFromDiscordOptionsPayloadByName(options, 'game');
-	const gamertag = normalizeGamertag(
-		getValueFromDiscordOptionsPayloadByName(options, 'gamertag')
+	const language = getValueFromDiscordOptionsPayloadByName(
+		options,
+		'language',
+		'en-US'
 	);
 
 	// Halo Infinite
 	if (game === 'infinite') {
-		const response = await discord.messages.create({
+		const response = discord.messages.create({
 			channel_id: `${context.params.event.channel_id}`,
-			...(await getPlayerInfiniteRanks(gamertag)),
+			...(await getInfiniteArticles(language)),
 		});
 
 		return response;
@@ -50,7 +52,7 @@ module.exports = async (
 	if (game === 'mcc') {
 		const response = discord.messages.create({
 			channel_id: `${context.params.event.channel_id}`,
-			...(await getPlayerMCCRanks(gamertag)),
+			...(await getMCCArticles(language)),
 		});
 
 		return response;

@@ -55,6 +55,9 @@ module.exports = async (
 
 		return response;
 	}
+
+	// Default / Error
+	throw new Error('Unknown "game" specified');
 };
 
 //#endregion

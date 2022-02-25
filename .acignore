@@ -2,10 +2,10 @@
 node_modules/
 
 # Files
+.gitignore
 .editorconfig
 .prettierrc
 .DS_Store
 
 # Environment
-.env*
 env-template.json

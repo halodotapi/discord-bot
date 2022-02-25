@@ -12,7 +12,9 @@ const { b64encode, b64decode } = require('./crypto');
  */
 const CUSTOM_IDS_ACTIONS = {
 	MCC_MATCHES: 'mcc_matches',
+	MCC_ARTICLES: 'mcc_articles',
 	INFINITE_MATCHES: 'infinite_matches',
+	INFINITE_ARTICLES: 'infinite_articles',
 };
 
 //#endregion
@@ -21,22 +23,29 @@ const CUSTOM_IDS_ACTIONS = {
 /**
  * @param {Array<{ "name": string; "value": string; "type": number }>} options
  * @param {string} name
+ * @param {string | undefined} [defaultValue=void 0]
  */
-const getValueFromDiscordOptionsPayloadByName = (options, name) =>
-	options.find(o => o.name === name).value;
+const getValueFromDiscordOptionsPayloadByName = (
+	options,
+	name,
+	defaultValue = void 0
+) => {
+	const find = options.find(o => o.name === name);
+	return find !== void 0 ? find.value : defaultValue;
+};
 
 /**
  * @param {string} action
  * @param {Record<string, unknown>} payload
  */
 const packCustomId = (action, payload) =>
-	[action, b64encode(JSON.stringify(payload))].join('#');
+	[action, b64encode(JSON.stringify(payload))].join('|');
 
 /**
  * @param {string} customId
  */
 const unpackCustomId = customId => {
-	const explode = customId.split('#');
+	const explode = customId.split('|');
 
 	return {
 		action: explode[0],

@@ -56,7 +56,6 @@ const getPlayerMCCMatches = async (gamertag, index = 0) => {
 				}),
 				disabled: hasNext === false,
 			},
-
 			{
 				...navigationButtonTemplate,
 				label: 'Next Match',

@@ -1,16 +1,19 @@
-# README
-[<img src="https://open.autocode.com/static/images/open.svg?" width="192">](https://open.autocode.com/)
+# Halo API - Discord Bot
 
-This is the README for your project. If you choose to publish an open source `app`
-for this project, this is what will be displayed on [Autocode Apps](/app).
-**The first line** will be used as the title of the app. Otherwise, you should use it
-to record important information about the project for yourself or your teammates.
+[<img src="https://open.autocode.com/static/images/open.svg" width="192">](https://open.autocode.com/)
 
-## Preview
-While in the Autocode Editor, you can see a small preview of your README
-in the bottom right corner. Click on it to expand the preview.
+Embrace the power of our **[Halo API](https://autocode.com/halo/)** on your own **Discord server**!
 
-## GitHub
-Should you decide to publish your projects and templates to GitHub,
-you can include an **Open in Autocode** button as displayed above.
-This will enable anybody to fork your project in Autocode directly.
+## Available Commands:
+
+-   **/halo-stats [game] [gamertag]** - Retrieve player's stats (Service Record)
+-   **/halo-ranks [game] [gamertag]** - Retrieve player's ranks
+-   **/halo-matches [game] [gamertag]** - Retrieve player's recent matches
+-   **/halo-articles [game] [lang]** - Retrieve available articles from a specific game
+
+## Installation
+
+1. Click "Install Free"
+2. Link required resources
+3. Click "Install App"
+4. Profit
