@@ -5,7 +5,18 @@
 
 const lib = require('../../../../../../modules/lib');
 const discordUsers = lib.discord.commands['@0.2.0'];
+const discordGuilds = lib.discord.guilds['@0.1.0'];
 const discordCommands = lib.discord.commands['@0.1.0'];
+
+const guild = await discordGuilds.retrieve({
+	guild_id: context.params.event.guild_id,
+	with_counts: false,
+});
+
+// Only the owner can setup the bot
+if (guild.owner_id !== context.params.event.author.id) {
+	return null;
+}
 
 await Promise.all([
 	// Status
