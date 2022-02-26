@@ -4,7 +4,7 @@
  **/
 
 const lib = require('../../../../../../modules/lib');
-const discordUsers = lib.discord.commands['@0.2.0'];
+const discordUsers = lib.discord.users['@0.2.0'];
 const discordGuilds = lib.discord.guilds['@0.1.0'];
 const discordCommands = lib.discord.commands['@0.1.0'];
 
