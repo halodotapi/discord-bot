@@ -3,10 +3,17 @@
  * https://autocode.com/halo
  **/
 
-const lib = require('../../modules/lib');
+const lib = require('../../../../../../modules/lib');
+const discordUsers = lib.discord.commands['@0.2.0'];
 const discordCommands = lib.discord.commands['@0.1.0'];
 
 await Promise.all([
+	// Status
+	discordUsers.me.status.update({
+		activity_name: `/halo commands`,
+		activity_type: 'WATCHING',
+		status: 'ONLINE',
+	}),
 	// Matches
 	discordCommands.create({
 		name: 'halo-matches',
@@ -176,4 +183,4 @@ await Promise.all([
 			},
 		],
 	}),
-]);
+]).catch(console.error);

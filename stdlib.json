@@ -3,6 +3,12 @@
 	"timeout": 30000,
 	"connector": false,
 	"events": {
+		"functions/events/discord/message/create/prefix/setup.js": {
+			"name": "discord.message.create.prefix",
+			"subtype": {
+				"prefix": "halodotapi!setup"
+			}
+		},
 		"functions/events/discord/command/halo-stats.js": {
 			"name": "discord.command",
 			"subtype": {
