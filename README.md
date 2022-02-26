@@ -9,7 +9,11 @@ Embrace the power of our **[Halo API](https://autocode.com/halo/)** on your own 
 -   **/halo-stats [game] [gamertag]** - Retrieve player's stats (Service Record)
 -   **/halo-ranks [game] [gamertag]** - Retrieve player's ranks
 -   **/halo-matches [game] [gamertag]** - Retrieve player's recent matches
--   **/halo-articles [game] [lang]** - Retrieve available articles from a specific game
+-   **/halo-articles [game] [language]** - Retrieve available articles from a specific game
+
+## Demo
+
+If you want to try out the bot first, please feel free to join our **[Discord server](https://discord.gg/aTG87nbtF2)** or add it directly to your own by **[clicking right here](https://discord.halodotapi.com/authorize)**!
 
 ## Installation
 
