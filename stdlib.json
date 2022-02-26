@@ -1,5 +1,5 @@
 {
-	"name": "zeny/halodotapi-bot",
+	"name": "halo/discord-bot",
 	"timeout": 30000,
 	"connector": false,
 	"events": {
