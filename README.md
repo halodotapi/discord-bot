@@ -1,4 +1,4 @@
-# Halo API - Discord Bot
+# HaloDotAPI - Discord Bot
 
 [<img src="https://open.autocode.com/static/images/open.svg" width="192">](https://open.autocode.com/)
 
@@ -17,3 +17,7 @@ Embrace the power of our **[Halo API](https://autocode.com/halo/)** on your own 
 2. Link required resources
 3. Click "Install App"
 4. Profit
+
+## Licence
+
+MIT

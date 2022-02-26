@@ -40,29 +40,37 @@ const getInfiniteArticles = async (language, index = 0) => {
 		type: 2,
 	};
 
-	components.push({
-		type: 1,
-		components: [
-			{
-				...navigationButtonTemplate,
-				label: 'Previous',
-				custom_id: packCustomId(CUSTOM_IDS_ACTIONS.INFINITE_ARTICLES, {
-					gamertag,
-					index: index - 1,
-				}),
-				disabled: hasNext === false,
-			},
-			{
-				...navigationButtonTemplate,
-				label: 'Next',
-				custom_id: packCustomId(CUSTOM_IDS_ACTIONS.INFINITE_ARTICLES, {
-					gamertag,
-					index: index + 1,
-				}),
-				disabled: hasPrevious === false,
-			},
-		],
-	});
+	if (articles.data.length >= 2) {
+		components.push({
+			type: 1,
+			components: [
+				{
+					...navigationButtonTemplate,
+					label: 'Previous',
+					custom_id: packCustomId(
+						CUSTOM_IDS_ACTIONS.INFINITE_ARTICLES,
+						{
+							language,
+							index: index - 1,
+						}
+					),
+					disabled: hasNext === false,
+				},
+				{
+					...navigationButtonTemplate,
+					label: 'Next',
+					custom_id: packCustomId(
+						CUSTOM_IDS_ACTIONS.INFINITE_ARTICLES,
+						{
+							language,
+							index: index + 1,
+						}
+					),
+					disabled: hasPrevious === false,
+				},
+			],
+		});
+	}
 
 	return {
 		content: '',
@@ -79,6 +87,9 @@ const getInfiniteArticles = async (language, index = 0) => {
 			},
 			image: {
 				url: articleInfo.image_url,
+			},
+			footer: {
+				text: 'Halo Infinite',
 			},
 		},
 	};

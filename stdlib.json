@@ -1,5 +1,5 @@
 {
-	"name": "halo/discord-bot",
+	"name": "zeny/halodotapi-bot",
 	"timeout": 30000,
 	"connector": false,
 	"events": {
@@ -26,6 +26,9 @@
 			"subtype": {
 				"command": "halo-articles"
 			}
+		},
+		"functions/events/discord/message/button/interaction/all.js": {
+			"name": "discord.message.button.interaction.all"
 		}
 	}
 }

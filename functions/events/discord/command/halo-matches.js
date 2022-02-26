@@ -27,7 +27,7 @@ module.exports = async (
 	 */
 	context
 ) => {
-	const discord = lib.discord.channels[DISCORD_LIB_VERSION];
+	const discordChannels = lib.discord.channels[DISCORD_LIB_VERSION];
 	const { options } = context.params.event.data;
 
 	// Options
@@ -38,7 +38,7 @@ module.exports = async (
 
 	// Halo Infinite
 	if (game === 'infinite') {
-		const response = discord.messages.create({
+		const response = discordChannels.messages.create({
 			channel_id: `${context.params.event.channel_id}`,
 			...(await getPlayerInfiniteMatches(gamertag)),
 		});
@@ -48,7 +48,7 @@ module.exports = async (
 
 	// Halo: The Master Chief Collection
 	if (game === 'mcc') {
-		const response = discord.messages.create({
+		const response = discordChannels.messages.create({
 			channel_id: `${context.params.event.channel_id}`,
 			...(await getPlayerMCCMatches(gamertag)),
 		});

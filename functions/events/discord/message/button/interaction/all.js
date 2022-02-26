@@ -41,7 +41,7 @@ module.exports = async (
 	}
 
 	const { action, payload } = unpackCustomId(customId);
-	const discord = lib.discord.channels[DISCORD_LIB_VERSION];
+	const discordChannels = lib.discord.channels[DISCORD_LIB_VERSION];
 
 	// Halo Infinite - Matches
 	if (action === CUSTOM_IDS_ACTIONS.INFINITE_MATCHES) {
@@ -50,7 +50,7 @@ module.exports = async (
 			context.params.event.channel_id
 		);
 
-		const response = await discord.messages.update({
+		const response = await discordChannels.messages.update({
 			message_id: context.params.event.message.id,
 			channel_id: context.params.event.channel_id,
 			...(await getPlayerInfiniteMatches(
@@ -69,7 +69,7 @@ module.exports = async (
 			context.params.event.channel_id
 		);
 
-		const response = await discord.messages.update({
+		const response = await discordChannels.messages.update({
 			message_id: context.params.event.message.id,
 			channel_id: context.params.event.channel_id,
 			...(await getInfiniteArticles(payload.language, payload.index)),
@@ -85,7 +85,7 @@ module.exports = async (
 			context.params.event.channel_id
 		);
 
-		const response = await discord.messages.update({
+		const response = await discordChannels.messages.update({
 			message_id: context.params.event.message.id,
 			channel_id: context.params.event.channel_id,
 			...(await getPlayerMCCMatches(payload.language, payload.index)),
@@ -101,7 +101,7 @@ module.exports = async (
 			context.params.event.channel_id
 		);
 
-		const response = await discord.messages.update({
+		const response = await discordChannels.messages.update({
 			message_id: context.params.event.message.id,
 			channel_id: context.params.event.channel_id,
 			...(await getMCCArticles(payload.language, payload.index)),
@@ -121,8 +121,7 @@ module.exports = async (
  * @param {string} channelId
  */
 const setLoading = async (messageId, channelId) => {
-	const discord = lib.discord.channels[DISCORD_LIB_VERSION];
-	await discord.messages
+	await lib.discord.channels[DISCORD_LIB_VERSION].messages
 		.update({
 			message_id: messageId,
 			channel_id: channelId,

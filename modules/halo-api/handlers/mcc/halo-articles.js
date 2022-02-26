@@ -40,29 +40,31 @@ const getMCCArticles = async (language, index = 0) => {
 		type: 2,
 	};
 
-	components.push({
-		type: 1,
-		components: [
-			{
-				...navigationButtonTemplate,
-				label: 'Previous',
-				custom_id: packCustomId(CUSTOM_IDS_ACTIONS.MCC_ARTICLES, {
-					gamertag,
-					index: index - 1,
-				}),
-				disabled: hasNext === false,
-			},
-			{
-				...navigationButtonTemplate,
-				label: 'Next',
-				custom_id: packCustomId(CUSTOM_IDS_ACTIONS.MCC_ARTICLES, {
-					gamertag,
-					index: index + 1,
-				}),
-				disabled: hasPrevious === false,
-			},
-		],
-	});
+	if (articles.data.length >= 2) {
+		components.push({
+			type: 1,
+			components: [
+				{
+					...navigationButtonTemplate,
+					label: 'Previous',
+					custom_id: packCustomId(CUSTOM_IDS_ACTIONS.MCC_ARTICLES, {
+						language,
+						index: index - 1,
+					}),
+					disabled: hasNext === false,
+				},
+				{
+					...navigationButtonTemplate,
+					label: 'Next',
+					custom_id: packCustomId(CUSTOM_IDS_ACTIONS.MCC_ARTICLES, {
+						language,
+						index: index + 1,
+					}),
+					disabled: hasPrevious === false,
+				},
+			],
+		});
+	}
 
 	return {
 		content: '',
@@ -77,8 +79,11 @@ const getMCCArticles = async (language, index = 0) => {
 				url: BOT_EMBED_AUTHOR_URL,
 				icon_url: BOT_EMBED_ICON_URL,
 			},
-			image: {
+			thumbnail: {
 				url: articleInfo.image_url,
+			},
+			footer: {
+				text: 'Halo: The Master Chief Collection',
 			},
 		},
 	};
