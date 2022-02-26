@@ -3,10 +3,7 @@
 	"description": "HaloDotAPI Discord Bot",
 	"version": "0.0.0",
 	"license": "MIT",
-	"author": {
-		"name": "Alexis \"Zeny\" Bize",
-		"email": "alexis@autocode.com"
-	},
+	"author": "Zeny",
 	"dependencies": {
 		"lib": "latest"
 	},
