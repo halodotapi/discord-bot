@@ -20,7 +20,7 @@ If you want to try out the bot first, please feel free to join our **[Discord se
 1. Click "Install Free"
 2. Link required resources
 3. Click "Install App"
-4. Profit
+4. Create all commands by running `/functions/helpers/create-commands.js`
 
 ## Troubleshooting
 

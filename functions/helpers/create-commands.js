@@ -4,8 +4,7 @@
  **/
 
 const lib = require('../../modules/lib');
-const { DISCORD_LIB_VERSION } = require('/../modules/discord/config');
-const discordCommands = lib.discord.commands[DISCORD_LIB_VERSION];
+const discordCommands = lib.discord.commands['@0.1.0'];
 
 await Promise.all([
 	// Matches
