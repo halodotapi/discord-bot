@@ -18,6 +18,10 @@ Embrace the power of our **[Halo API](https://autocode.com/halo/)** on your own 
 3. Click "Install App"
 4. Profit
 
+## Troubleshooting
+
+In case of getting error ephemeral messages like "**Error: Missing Permissions: code 50013**", please make sure that the bot has the permission to send and manage messages.
+
 ## Licence
 
 MIT
