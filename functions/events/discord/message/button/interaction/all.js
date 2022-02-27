@@ -92,7 +92,7 @@ module.exports = async (
 		const response = await discordChannels.messages.update({
 			message_id: context.params.event.message.id,
 			channel_id: context.params.event.channel_id,
-			...(await getPlayerMCCMatches(payload.language, payload.index)),
+			...(await getPlayerMCCMatches(payload.gamertag, payload.index)),
 		});
 
 		return response;
