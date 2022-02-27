@@ -19,12 +19,16 @@ const {
 } = require('../../../../../../modules/halo-api/handlers/infinite/halo-matches');
 
 const {
-	getMCCArticles,
-} = require('../../../../../../modules/halo-api/handlers/mcc/halo-articles');
-
-const {
 	getInfiniteArticles,
 } = require('../../../../../../modules/halo-api/handlers/infinite/halo-articles');
+
+const {
+	getPlayerMCCMatches,
+} = require('../../../../../../modules/halo-api/handlers/mcc/halo-matches');
+
+const {
+	getMCCArticles,
+} = require('../../../../../../modules/halo-api/handlers/mcc/halo-articles');
 
 //#region handler
 
