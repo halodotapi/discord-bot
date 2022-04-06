@@ -25,7 +25,7 @@ const getPlayerMCCRanks = async gamertag => {
 		gamertag,
 	});
 
-	const formattedGamertag = serviceRecord.additional.gamertag;
+	const formattedGamertag = serviceRecord.additional.parameters.gamertag;
 	const { multiplayer } = serviceRecord.data;
 	const MPSkillRanks = multiplayer.progression.ranks;
 

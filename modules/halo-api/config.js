@@ -9,7 +9,7 @@
  * @constant
  * @type {string}
  **/
-const INFINITE_LIB_VERSION = '@0.3.9';
+const INFINITE_LIB_VERSION = '@1.0.0';
 
 /**
  * @constant
