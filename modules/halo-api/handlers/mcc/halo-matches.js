@@ -28,7 +28,7 @@ const getPlayerMCCMatches = async (gamertag, index = 0) => {
 		page: 1,
 	});
 
-	const formattedGamertag = matches.additional.gamertag;
+	const formattedGamertag = matches.additional.parameters.gamertag;
 	const matchInfo = matches.data[index];
 
 	const hasPrevious = matches.data[index + 1] !== void 0;

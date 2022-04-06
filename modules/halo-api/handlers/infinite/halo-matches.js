@@ -23,19 +23,43 @@ const {
  **/
 const getPlayerInfiniteMatches = async (gamertag, index = 0) => {
 	const infinite = lib.halo.infinite[INFINITE_LIB_VERSION];
-	const matches = await infinite.stats.matches.list({
+	const matches = await infinite.stats.players.matches({
 		gamertag,
-		limit: {
-			count: 25,
-			offset: index,
-		},
+		count: 25,
+		type: 'all',
+		offset: index,
 	});
 
-	const formattedGamertag = matches.additional.gamertag;
-	const matchInfo = matches.data[index];
+	const formattedGamertag = matches.additional.parameters.gamertag;
+	const matchInfo = matches.data.matches[index];
 
-	const hasPrevious = matches.data[index + 1] !== void 0;
-	const hasNext = matches.data[index - 1] !== void 0;
+	const noData =
+		matches.data.privacy.public === false || matchInfo === void 0;
+
+	if (noData === true) {
+		return {
+			content: '',
+			tts: false,
+			embed: {
+				color: BOT_EMBED_COLOR,
+				title: `Infinite Recent Matches for ${formattedGamertag}`,
+				author: {
+					name: BOT_EMBED_AUTHOR_NAME,
+					url: BOT_EMBED_AUTHOR_URL,
+					icon_url: BOT_EMBED_ICON_URL,
+				},
+				fields: [
+					{
+						name: '**No Data**',
+						value: 'Oops, no matches were returned! Take a look at our troubleshooting guide: https://bit.ly/halo-stats-troubleshooting-discord',
+					},
+				],
+			},
+		};
+	}
+
+	const hasPrevious = matches.data.matches[index + 1] !== void 0;
+	const hasNext = matches.data.matches[index - 1] !== void 0;
 
 	// Navigation Buttons
 	const components = [];
@@ -79,7 +103,7 @@ const getPlayerInfiniteMatches = async (gamertag, index = 0) => {
 			color: BOT_EMBED_COLOR,
 			title: `Infinite Recent Matches for ${formattedGamertag}`,
 			description: `> Latest 25 - Match ${index + 1}/${
-				matches.data.length
+				matches.data.matches.length
 			}`,
 			author: {
 				name: BOT_EMBED_AUTHOR_NAME,
@@ -94,8 +118,10 @@ const getPlayerInfiniteMatches = async (gamertag, index = 0) => {
 					name: 'Details',
 					value: [
 						`+ **Map:** ${matchInfo.details.map.name}`,
-						`+ **Mode:** ${matchInfo.details.category.name}`,
-						`+ **Playlist:** ${matchInfo.details.playlist.name}`,
+						`+ **Mode:** ${matchInfo.details.gamevariant.name}`,
+						`+ **Playlist:** ${
+							matchInfo.details.playlist?.name || 'N/A'
+						}`,
 						`+ **Duration:** ${matchInfo.duration.human}`,
 						`+ **Outcome:** ${[
 							matchInfo.player.outcome.charAt(0).toUpperCase() +
@@ -121,10 +147,6 @@ const getPlayerInfiniteMatches = async (gamertag, index = 0) => {
 						)}`,
 						`+ **Medals:** ${vwc(
 							matchInfo.player.stats.core.summary.medals
-						)}`,
-						`+ **Headshots:** ${vwc(
-							matchInfo.player.stats.core.breakdowns.kills
-								.headshots
 						)}`,
 						`+ **K/D Ratio:** ${(
 							matchInfo.player.stats.core.kdr || 0

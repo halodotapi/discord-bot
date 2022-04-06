@@ -22,8 +22,8 @@ const {
  **/
 const getInfiniteArticles = async (language, index = 0) => {
 	const infinite = lib.halo.infinite[INFINITE_LIB_VERSION];
-	const articles = await infinite.articles.list({
-		language,
+	const articles = await infinite.articles({
+		language: language.toLowerCase(),
 	});
 
 	const articleInfo = articles.data[index];

@@ -21,7 +21,7 @@ const {
  * @constant
  * @type {string}
  */
-const MP_SR_FILTER = 'matchmade:pvp';
+const MP_SR_FILTER = 'matchmade';
 
 //#enregion
 //#region public methods
@@ -32,15 +32,37 @@ const MP_SR_FILTER = 'matchmade:pvp';
 const getPlayerInfiniteStats = async gamertag => {
 	const infinite = lib.halo.infinite[INFINITE_LIB_VERSION];
 	const [CPServiceRecord, MPServiceRecord] = await Promise.all([
-		infinite.stats['service-record'].campaign({ gamertag }),
-		infinite.stats['service-record'].multiplayer({
+		infinite.stats.players['service-record'].campaign({ gamertag }),
+		infinite.stats.players['service-record'].multiplayer({
 			gamertag,
 			filter: MP_SR_FILTER,
 		}),
 	]);
 
-	const MPCoreStats = MPServiceRecord.data.core;
-	const formattedGamertag = MPServiceRecord.additional.gamertag;
+	if (MPServiceRecord.data.records.pvp === null) {
+		return {
+			content: '',
+			tts: false,
+			embed: {
+				color: BOT_EMBED_COLOR,
+				title: `Infinite Service Record (PVP) for ${formattedGamertag}`,
+				author: {
+					name: BOT_EMBED_AUTHOR_NAME,
+					url: BOT_EMBED_AUTHOR_URL,
+					icon_url: BOT_EMBED_ICON_URL,
+				},
+				fields: [
+					{
+						name: '**No Data**',
+						value: 'Oops, no stats were returned! Take a look at our troubleshooting guide: https://bit.ly/halo-stats-troubleshooting-discord',
+					},
+				],
+			},
+		};
+	}
+
+	const MPCoreStats = MPServiceRecord.data.records.pvp.core;
+	const formattedGamertag = MPServiceRecord.additional.parameters.gamertag;
 	const escapedGamertag = escapeGamertag(formattedGamertag);
 
 	const totalAudioLogs = Object.keys(CPServiceRecord.data.audio_logs).reduce(
@@ -53,7 +75,7 @@ const getPlayerInfiniteStats = async gamertag => {
 		tts: false,
 		embed: {
 			color: BOT_EMBED_COLOR,
-			title: `Infinite Service Record for ${formattedGamertag}`,
+			title: `Infinite Service Record (PVP) for ${formattedGamertag}`,
 			author: {
 				name: BOT_EMBED_AUTHOR_NAME,
 				url: BOT_EMBED_AUTHOR_URL,
@@ -73,14 +95,8 @@ const getPlayerInfiniteStats = async gamertag => {
 						`+ **Kills:** ${vwc(MPCoreStats.summary.kills)}`,
 						`+ **Deaths:** ${vwc(MPCoreStats.summary.deaths)}`,
 						`+ **Assists:** ${vwc(MPCoreStats.summary.assists)}`,
+						`+ **Medals:** ${vwc(MPCoreStats.summary.medals)}`,
 						`+ **K/D Ratio:** ${MPCoreStats.kdr.toFixed(2)}`,
-						``,
-						`+ **Matches:** ${vwc(
-							MPServiceRecord.data.matches_played
-						)}`,
-						`+ **Win Rate:** ${MPServiceRecord.data.win_rate.toFixed(
-							2
-						)}%`,
 					].join('\n'),
 					inline: true,
 				},
@@ -97,15 +113,9 @@ const getPlayerInfiniteStats = async gamertag => {
 							CPServiceRecord.data.spartan_cores
 						)}`,
 						`+ **Audio Logs Found:** ${vwc(totalAudioLogs)}`,
-						``,
 						`+ **Missions Completed:** ${vwc(
-							CPServiceRecord.data.mission_completed
+							CPServiceRecord.data.missions_completed
 						)}`,
-						`+ **LASO Completed:** ${
-							CPServiceRecord.data.difficulty.laso_completed
-								? 'Yes'
-								: 'No'
-						}`,
 					].join('\n'),
 					inline: true,
 				},

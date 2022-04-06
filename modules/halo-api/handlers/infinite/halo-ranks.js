@@ -21,11 +21,11 @@ const {
  **/
 const getPlayerInfiniteRanks = async gamertag => {
 	const infinite = lib.halo.infinite[INFINITE_LIB_VERSION];
-	const CSRS = await infinite.stats.csrs({
+	const CSRS = await infinite.stats.players.csrs({
 		gamertag,
 	});
 
-	const formattedGamertag = CSRS.additional.gamertag;
+	const formattedGamertag = CSRS.additional.parameters.gamertag;
 	const escapedGamertag = escapeGamertag(formattedGamertag);
 
 	const highestCurrentCSRS = CSRS.data
