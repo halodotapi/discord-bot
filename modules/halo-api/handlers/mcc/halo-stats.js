@@ -26,7 +26,7 @@ const getPlayerMCCStats = async gamertag => {
 		mcc.player.appearance({ gamertag }),
 	]);
 
-	const formattedGamertag = serviceRecord.additional.parameters.gamertag;
+	const formattedGamertag = serviceRecord.additional.gamertag;
 	const { multiplayer, campaign } = serviceRecord.data;
 	const xp = multiplayer.progression.xp;
 
