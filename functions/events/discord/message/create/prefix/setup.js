@@ -8,7 +8,7 @@ const discordUsers = lib.discord.users['@0.2.0'];
 const discordGuilds = lib.discord.guilds['@0.1.0'];
 const discordCommands = lib.discord.commands['@0.1.0'];
 
-module.exports = async () => {
+module.exports = async context => {
 	const guild = await discordGuilds.retrieve({
 		guild_id: context.params.event.guild_id,
 		with_counts: false,
