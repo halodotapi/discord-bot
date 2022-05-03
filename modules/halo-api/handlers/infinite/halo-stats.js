@@ -15,15 +15,6 @@ const {
 	BOT_EMBED_ICON_URL,
 } = require('../../../discord/config');
 
-//#region definitions
-
-/**
- * @constant
- * @type {string}
- */
-const MP_SR_FILTER = 'matchmade';
-
-//#enregion
 //#region public methods
 
 /**
@@ -33,9 +24,9 @@ const getPlayerInfiniteStats = async gamertag => {
 	const infinite = lib.halo.infinite[INFINITE_LIB_VERSION];
 	const [CPServiceRecord, MPServiceRecord] = await Promise.all([
 		infinite.stats.players['service-record'].campaign({ gamertag }),
-		infinite.stats.players['service-record'].multiplayer({
+		infinite.stats.players['service-record'].multiplayer.matchmade({
 			gamertag,
-			filter: MP_SR_FILTER,
+			season: 1,
 		}),
 	]);
 
