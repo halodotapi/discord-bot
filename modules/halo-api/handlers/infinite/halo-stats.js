@@ -24,35 +24,12 @@ const getPlayerInfiniteStats = async gamertag => {
 	const infinite = lib.halo.infinite[INFINITE_LIB_VERSION];
 	const [CPServiceRecord, MPServiceRecord] = await Promise.all([
 		infinite.stats.players['service-record'].campaign({ gamertag }),
-		infinite.stats.players['service-record'].multiplayer.matchmade({
+		infinite.stats.players['service-record'].multiplayer.matchmade.all({
 			gamertag,
-			season: 1,
 		}),
 	]);
 
-	if (MPServiceRecord.data.records.pvp === null) {
-		return {
-			content: '',
-			tts: false,
-			embed: {
-				color: BOT_EMBED_COLOR,
-				title: `Infinite Service Record (PVP) for ${formattedGamertag}`,
-				author: {
-					name: BOT_EMBED_AUTHOR_NAME,
-					url: BOT_EMBED_AUTHOR_URL,
-					icon_url: BOT_EMBED_ICON_URL,
-				},
-				fields: [
-					{
-						name: '**No Data**',
-						value: 'Oops, no stats were returned! Take a look at our troubleshooting guide: https://bit.ly/halo-stats-troubleshooting-discord',
-					},
-				],
-			},
-		};
-	}
-
-	const MPCoreStats = MPServiceRecord.data.records.pvp.core;
+	const MPCoreStats = MPServiceRecord.data.core;
 	const formattedGamertag = MPServiceRecord.additional.parameters.gamertag;
 	const escapedGamertag = escapeGamertag(formattedGamertag);
 

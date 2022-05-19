@@ -1,6 +1,6 @@
 {
 	"name": "halo/discord-bot",
-	"timeout": 120000,
+	"timeout": 60000,
 	"connector": false,
 	"events": {
 		"functions/events/discord/message/create/prefix/setup.js": {

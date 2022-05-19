@@ -27,7 +27,6 @@ const getPlayerInfiniteMatches = async (gamertag, index = 0) => {
 		gamertag,
 		count: 25,
 		type: 'all',
-		offset: index,
 	});
 
 	const formattedGamertag = matches.additional.parameters.gamertag;
@@ -102,9 +101,9 @@ const getPlayerInfiniteMatches = async (gamertag, index = 0) => {
 		embed: {
 			color: BOT_EMBED_COLOR,
 			title: `Infinite Recent Matches for ${formattedGamertag}`,
-			description: `> Latest 25 - Match ${index + 1}/${
-				matches.data.matches.length
-			}`,
+			description: `> Latest ${matches.data.matches.length} - Match ${
+				index + 1
+			}/${matches.data.matches.length}`,
 			author: {
 				name: BOT_EMBED_AUTHOR_NAME,
 				url: BOT_EMBED_AUTHOR_URL,
