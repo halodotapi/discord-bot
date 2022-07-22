@@ -46,19 +46,26 @@ const getPlayerMCCRanks = async gamertag => {
 				icon_url: BOT_EMBED_ICON_URL,
 			},
 			thumbnail: { url: highestRank.image_url },
-			fields: MPSkillRanks.reverse().map(sR => ({
-				name: sR.platform,
-				value: sR.playlists
-					.map(playlist => {
-						const emojiId = `r${playlist.rank}`;
-						const emoji = MCC_RANKS[emojiId];
-						// Using "en space" to increase space between emoji and text
-						const text = [emoji, playlist.name].join(' ');
-						return text;
-					})
-					.join('\n'),
-				inline: true,
-			})),
+			fields: [
+				...MPSkillRanks.reverse().map(sR => ({
+					name: sR.platform,
+					value: sR.playlists
+						.map(playlist => {
+							const emojiId = `r${playlist.rank}`;
+							const emoji = MCC_RANKS[emojiId];
+							// Using "en space" to increase space between emoji and text
+							const text = [emoji, playlist.name].join(' ');
+							return text;
+						})
+						.join('\n'),
+					inline: true,
+				})),
+				{
+					name: '#SaveHaloDotAPI',
+					value: `:green_heart: [Support us](https://bit.ly/support-hda)`,
+					inline: false,
+				},
+			],
 		},
 	};
 };

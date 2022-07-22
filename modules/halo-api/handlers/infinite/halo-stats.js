@@ -92,6 +92,11 @@ const getPlayerInfiniteStats = async gamertag => {
 					value: `:point_right: [https://halo.info/${escapedGamertag}](https://halo.info/${escapedGamertag})`,
 					inline: false,
 				},
+				{
+					name: '#SaveHaloDotAPI',
+					value: `:green_heart: [Support us](https://bit.ly/support-hda)`,
+					inline: false,
+				},
 			],
 		},
 	};

@@ -80,6 +80,11 @@ const getPlayerMCCStats = async gamertag => {
 					].join('\n'),
 					inline: true,
 				},
+				{
+					name: '#SaveHaloDotAPI',
+					value: `:green_heart: [Support us](https://bit.ly/support-hda)`,
+					inline: false,
+				},
 			],
 		},
 	};

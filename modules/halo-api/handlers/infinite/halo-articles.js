@@ -89,7 +89,7 @@ const getInfiniteArticles = async (language, index = 0) => {
 				url: articleInfo.image_url,
 			},
 			footer: {
-				text: 'Halo Infinite',
+				text: 'Halo Infinite - #SaveHaloDotAPI',
 			},
 		},
 	};

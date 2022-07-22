@@ -83,7 +83,7 @@ const getMCCArticles = async (language, index = 0) => {
 				url: articleInfo.image_url,
 			},
 			footer: {
-				text: 'Halo: The Master Chief Collection',
+				text: 'Halo: The Master Chief Collection - #SaveHaloDotAPI',
 			},
 		},
 	};

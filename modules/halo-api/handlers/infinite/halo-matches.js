@@ -184,6 +184,11 @@ const getPlayerInfiniteMatches = async (gamertag, index = 0) => {
 					].join('\n'),
 					inline: true,
 				},
+				{
+					name: '#SaveHaloDotAPI',
+					value: `:green_heart: [Support us](https://bit.ly/support-hda)`,
+					inline: false,
+				},
 			],
 			timestamp: matchInfo.played_at,
 		},
